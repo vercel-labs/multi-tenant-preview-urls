@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-const TENANTS: Record<string, { name: string; accent: string; bg: string }> = {
-  acme: { name: "Acme Corp", accent: "border-blue-500", bg: "bg-blue-500" },
-  globex: { name: "Globex", accent: "border-purple-500", bg: "bg-purple-500" },
-  initech: { name: "Initech", accent: "border-emerald-500", bg: "bg-emerald-500" },
+const TENANTS: Record<string, { name: string; accent: string; bg: string; text: string }> = {
+  acme: { name: "Acme Corp", accent: "border-blue-500", bg: "bg-blue-500", text: "text-blue-400" },
+  globex: { name: "Globex", accent: "border-purple-500", bg: "bg-purple-500", text: "text-purple-400" },
+  initech: { name: "Initech", accent: "border-emerald-500", bg: "bg-emerald-500", text: "text-emerald-400" },
 };
 
-const DEFAULT_TENANT = { name: "Unknown", accent: "border-neutral-800", bg: "bg-neutral-800" };
+const DEFAULT_TENANT = { name: "Unknown", accent: "border-neutral-800", bg: "bg-neutral-800", text: "text-neutral-400" };
 
 export default function Dashboard() {
   const { tenant: tenantId } = useParams<{ tenant: string }>();
@@ -19,25 +19,44 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-black text-white">
       <nav className={`border-b ${tenant.accent} px-6 py-4`}>
-        <div className="mx-auto flex max-w-3xl items-center gap-3 text-sm">
-          <Link href=".">
-            <svg height="20" viewBox="0 0 76 65" fill="white" aria-label="Vercel">
-              <title>Vercel</title>
-              <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
+        <div className="mx-auto flex max-w-3xl items-center justify-between text-sm">
+          <div className="flex items-center gap-3">
+            <Link href=".">
+              <svg height="20" viewBox="0 0 76 65" fill="white" aria-label="Vercel">
+                <title>Vercel</title>
+                <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
+              </svg>
+            </Link>
+            <span className="text-neutral-600">/</span>
+            <Link href="." className={`${tenant.bg} px-2 py-0.5 rounded text-sm hover:opacity-80`}>{tenant.name}</Link>
+            <span className="text-neutral-600">/</span>
+            <span className="text-neutral-400">Dashboard</span>
+          </div>
+          <a
+            href="https://github.com/vercel-labs/multi-tenant-preview-urls"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-neutral-400 hover:text-white transition-colors"
+          >
+            <svg height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
             </svg>
-          </Link>
-          <span className="text-neutral-600">/</span>
-          <Link href="." className={`${tenant.bg} px-2 py-0.5 rounded text-sm hover:opacity-80`}>{tenant.name}</Link>
-          <span className="text-neutral-600">/</span>
-          <span className="text-neutral-400">Dashboard</span>
+            GitHub
+          </a>
         </div>
       </nav>
 
       <main className="mx-auto max-w-3xl px-6 py-16">
         <h1 className="text-2xl font-medium">Dashboard</h1>
         <p className="mt-2">
-          <code className="text-neutral-300 bg-neutral-800 px-2 py-1 rounded">
-            {host ? `https://${host}/dashboard` : ""}
+          <code className="bg-neutral-800 px-2 py-1 rounded">
+            {host ? (
+              <>
+                <span className="text-neutral-500">https://</span>
+                <span className={tenant.text}>{tenantId}</span>
+                <span className="text-neutral-500">---{host.split('---')[1] || host}/dashboard</span>
+              </>
+            ) : ""}
           </code>
         </p>
 
