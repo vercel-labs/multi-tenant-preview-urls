@@ -61,7 +61,7 @@ export default function Home() {
           isAllTenants ? "border-neutral-800" : tenant.accent
         } px-6 py-4`}
       >
-        <div className="mx-auto flex max-w-3xl items-center justify-between text-sm">
+        <div className="mx-auto flex max-w-4xl items-center justify-between text-sm">
           <div className="flex items-center gap-3">
             <svg
               height="20"
@@ -75,7 +75,7 @@ export default function Home() {
             {!isAllTenants && (
               <>
                 <span className="text-neutral-600">/</span>
-                <span className={`${tenant.bg} px-2 py-0.5 rounded text-sm`}>
+                <span className={`${tenant.bg} px-2 py-px rounded text-sm`}>
                   {tenant.name}
                 </span>
               </>

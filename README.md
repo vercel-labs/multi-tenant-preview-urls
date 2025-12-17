@@ -59,5 +59,5 @@ This feature requires a custom deployment URL suffix (e.g., `.vercel.dev`). It d
 
 ## Demo
 
-- [Live demo](https://multi-tenant-preview-urls-aqbsv07sx.vercel.rocks)
+- [Live demo](https://multi-tenant-preview-urls-lq42u15m1.platformize.co)
 - [Documentation](https://vercel.com/platforms/docs/multi-tenant-platforms/preview-url-prefixes)
